@@ -15,6 +15,17 @@ main = forever $ do
   contents <- BL.getContents
   let bits = BG.runGet (BBG.runBitGet parse4by4) contents
   print bits
+  printOrNot $ sortMidi bits
+
+printOrNot :: Maybe(String) -> IO ()
+printOrNot (Just n) = print n
+printOrNot Nothing = return ()
+
+sortMidi :: (Integral a) => (a, a, a) -> Maybe(String)
+sortMidi (a, 48, c) = Just("a") 
+sortMidi (a, 49, c) = Just("b") 
+sortMidi (a, 50, c) = Just("c") 
+sortMidi x = Nothing
 
 --data Midi = Midi
 --  { first  :: [Word8]
@@ -29,8 +40,7 @@ main = forever $ do
 --  return $! Midi first second
 
 parse4by4 = 
-  (,,,)
-    <$> BBG.getWord32be 8
-    <*> BBG.getWord32be 8
-    <*> BBG.getWord32be 8
-    <*> BBG.getWord32be 8
+  (,,)
+    <$> BBG.getWord8 8
+    <*> BBG.getWord8 8
+    <*> BBG.getWord8 8
