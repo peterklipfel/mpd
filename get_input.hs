@@ -10,19 +10,15 @@ import qualified Data.Binary.Bits.Get as BBG
   
 main = forever $ do
   bits <- fmap getbits $ BL.getContents 
-  getKey bits
+  pressKey bits
     where 
       getbits = BG.runGet $ BBG.runBitGet parseMidi
 
-getKey :: (Integral a) => (a, a, a) -> IO()
-getKey (a, 48, c) = runRobot $ tap _Tilde
-getKey (a, 49, c) = runRobot $ tap _Space
-getKey (a, 50, c) = runRobot $ tap _Tilde
-getKey x = return ()
-
---pressKey :: Maybe(Robot()) -> IO()
---pressKey Just x  = runRobot x
---pressKey Nothing = ()
+oressKey :: (Integral a) => (a, a, a) -> IO()
+oressKey (a, 48, c) = runRobot $ tap _Tilde
+oressKey (a, 49, c) = runRobot $ tap _Space
+oressKey (a, 50, c) = runRobot $ tap _Tilde
+oressKey x = return ()
 
 parseMidi = 
   (,,)
